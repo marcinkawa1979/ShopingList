@@ -8,5 +8,7 @@
     <dimen name="text_size_big">24sp</dimen>
     <dimen name="text_size_small">16sp</dimen>
     <dimen name="button_bottom_distance">40dp</dimen>
+    <dimen name="line_margin">5dp</dimen>
+    <dimen name="line_height">2dp</dimen>
 
 </resources>

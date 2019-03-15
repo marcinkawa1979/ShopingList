@@ -12,7 +12,9 @@
     <style name="EditTextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_margin">@dimen/log_in_margin</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_marginStart">@dimen/log_in_margin</item>
+        <item name="android:layout_marginEnd">@dimen/log_in_margin</item>
         <item name="android:padding">@dimen/log_in_padding</item>
         <item name="android:textSize">@dimen/text_size_big</item>
         <item name="android:backgroundTint">@color/colorPrimary</item>
@@ -31,12 +33,22 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_marginBottom">@dimen/button_bottom_distance</item>
         <item name="android:layout_marginRight">@dimen/button_margin</item>
         <item name="android:layout_marginLeft">@dimen/button_margin</item>
         <item name="android:padding">@dimen/button_padding</item>
         <item name="android:textSize">@dimen/text_size_big</item>
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/line_height</item>
+        <item name="android:layout_marginLeft">@dimen/line_margin</item>
+        <item name="android:layout_marginRight">@dimen/line_margin</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

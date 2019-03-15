@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrderDetails"
+    android:background="@drawable/background">
+
+    <LinearLayout
+        android:id="@+id/order_details_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextView"
+            android:id="@+id/order_details_shop_name"
+            android:hint="Nazwa sklepu"/>
+        <TextView
+            android:id="@+id/order_details_shop_address"
+            style="@style/TextView"
+            android:drawableStart="@drawable/compass_24"
+            android:drawablePadding="10dp"
+            android:hint="Adres" />
+        <TextView
+            android:id="@+id/order_details_date"
+            style="@style/TextView"
+            android:drawableStart="@drawable/clock_24"
+            android:hint="15-03-2019"
+            />
+        <TextView
+            android:id="@+id/order_details_price"
+            style="@style/TextView"
+            android:drawableStart="@drawable/dollar_24"
+            android:hint="15 zł"
+            />
+        <TextView
+            style="@style/Line"
+            />
+    </LinearLayout>
+
+    <TextView
+        style="@style/TextView"
+        android:id="@+id/product_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/order_details_group"
+        android:layout_above="@+id/order_details_button"
+        android:hint="lista produktów"
+        android:nestedScrollingEnabled="true"/>
+
+    <Button
+        android:id="@+id/order_details_button"
+        style="@style/Button"
+        android:text="@string/order_details_button_text"
+        />
+
+    <!--<FrameLayout
+        android:id="@+id/order_details_frame"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/order_details_group"
+        android:layout_above="@+id/order_details_button"
+        >
+
+        <ListView
+            android:id="@+id/order_details_product_lv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ListView>
+    </FrameLayout>-->
+
+</RelativeLayout>

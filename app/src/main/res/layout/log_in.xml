@@ -44,6 +44,7 @@
         android:id="@+id/log_in_button"
         style="@style/Button"
         android:layout_below="@id/password_layout"
+        android:layout_alignParentBottom="false"
         android:text="@string/log_in_button_text"
         />
 

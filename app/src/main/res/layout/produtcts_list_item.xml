@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/products_lv_item"
+        style="@style/TextView"
+        android:background="@color/grey"
+        android:hint="Produkt"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignEnd="@+id/products_lv_item"
+        android:layout_alignBottom="@+id/products_lv_item"
+        android:src="@mipmap/ic_add_white"
+        android:background="@color/grey"
+        />
+
+</RelativeLayout>

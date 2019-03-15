@@ -8,5 +8,10 @@
 
     <string name="empty_view_title_text">Jescze nic nie kupiłeś.</string>
     <string name="empty_view_subtitle_text">Czas zrobić nowe zakupy. Kliknij w ikonkę na dole.</string>
-    <string name="shop_data">Dane sklepu.</string>
+    <string name="shop_data_label">Dane sklepu</string>
+    <string name="order_detail_label">Dane zamówienia</string>
+    <string name="order_details_button_text">Zaproś</string>
+    <string name="product_list_label">Lista zakupów</string>
+    <string name="products">Produkty</string>
+    <string name="done">Potwierdź</string>
 </resources>

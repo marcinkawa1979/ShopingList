@@ -9,22 +9,22 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ShopData extends AppCompatActivity {
+public class ProductList extends AppCompatActivity {
 
-    @BindView(R.id.shop_next_button)
-    Button mNextButton;
+    @BindView(R.id.product_list_button)
+    Button mConfirmButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop_data);
+        setContentView(R.layout.activity_product_list);
 
         ButterKnife.bind(this);
 
-        mNextButton.setOnClickListener(new View.OnClickListener() {
+        mConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShopData.this, ProductList.class);
+                Intent intent = new Intent(ProductList.this, OrderDetails.class);
                 startActivity(intent);
             }
         });
