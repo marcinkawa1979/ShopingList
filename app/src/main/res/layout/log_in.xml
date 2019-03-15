@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LogInActivity"
+    android:background="@drawable/background"
+    >
+
+    <EditText
+        android:id="@+id/e_mail_et"
+        style="@style/EditTextView"
+        android:layout_above="@+id/password_layout"
+        android:hint="@string/e_mail"
+        android:inputType="textEmailAddress" />
+
+    <RelativeLayout
+        android:id="@+id/password_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <EditText
+            style="@style/EditTextView"
+            android:id="@+id/password_et"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+        />
+
+        <ImageButton
+            android:id="@+id/show_password_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/password_et"
+            android:layout_alignBottom="@id/password_et"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:src="@mipmap/remove_red_eye_24px" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/log_in_button"
+        style="@style/Button"
+        android:layout_below="@id/password_layout"
+        android:text="@string/log_in_button_text"
+        />
+
+
+
+</RelativeLayout>

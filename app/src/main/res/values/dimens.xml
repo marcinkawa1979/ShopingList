@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="log_in_margin">16dp</dimen>
+    <dimen name="log_in_padding">4dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="button_margin">40dp</dimen>
+    <dimen name="button_padding">4dp</dimen>
+    <dimen name="text_size_big">24sp</dimen>
+    <dimen name="text_size_small">16sp</dimen>
+    <dimen name="button_bottom_distance">40dp</dimen>
+
+</resources>
