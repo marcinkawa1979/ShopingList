@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShopData">
+    tools:context=".ShopDataActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,23 +13,23 @@
     <EditText
         android:id="@+id/shop_name"
         style="@style/EditTextView"
-        android:hint="Nazwa sklepu"
+        android:hint="@string/hint_shop_name"
     />
 
     <EditText
         android:id="@+id/shop_address"
         style="@style/EditTextView"
-        android:layout_alignBottom="@+id/shop_name"
-        android:hint="Lokalizacja"
+        android:hint="@string/hint_localization"
         />
 
     <EditText
         android:id="@+id/shopping_date"
         style="@style/EditTextView"
-        android:layout_alignBottom="@+id/shop_address"
-        android:hint="Data zakupów"
+        android:hint="@string/hint_shopping_date"
+        android:focusable="false"
         android:inputType="date"
     />
+
     </LinearLayout>
 
     <Button
@@ -38,7 +38,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/button_bottom_distance"
         android:background="@color/colorPrimary"
-        android:text="Dalej"
+        android:text="@string/next_button"
         />
 
 </RelativeLayout>

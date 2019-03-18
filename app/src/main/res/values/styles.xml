@@ -26,7 +26,7 @@
         <item name="android:layout_marginStart">@dimen/log_in_margin</item>
         <item name="android:layout_marginEnd">@dimen/log_in_margin</item>
         <item name="android:padding">@dimen/log_in_padding</item>
-        <item name="android:textSize">@dimen/text_size_big</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
     </style>
 
     <style name="Button">

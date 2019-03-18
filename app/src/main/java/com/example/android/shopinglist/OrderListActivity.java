@@ -10,7 +10,7 @@ import android.widget.ListView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class OrderList extends AppCompatActivity {
+public class OrderListActivity extends AppCompatActivity {
 
 
     @BindView(R.id.fab) FloatingActionButton fab;
@@ -20,14 +20,14 @@ public class OrderList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order);
+        setContentView(R.layout.activity_order_list);
 
         ButterKnife.bind(this);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(OrderList.this, ShopData.class);
+                Intent intent = new Intent(OrderListActivity.this, ShopDataActivity.class);
                 startActivity(intent);
             }
         });

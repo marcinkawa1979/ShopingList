@@ -12,6 +12,13 @@
     <string name="order_detail_label">Dane zamówienia</string>
     <string name="order_details_button_text">Zaproś</string>
     <string name="product_list_label">Lista zakupów</string>
-    <string name="products">Produkty</string>
+    <string name="product">Produkty</string>
     <string name="done">Potwierdź</string>
+    <string name="next_button">Dalej</string>
+    <string name="amount">Kwota</string>
+    <string name="hint_shop_name">Nazwa sklepu</string>
+    <string name="hint_localization">Lokalizacja</string>
+    <string name="hint_shopping_date">Data zakupów</string>
+    <string name="hint_product">Towar</string>
+    <string name="hint_sample_price">0 zł</string>
 </resources>
