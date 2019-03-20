@@ -16,7 +16,7 @@ public class Order {
         this.shopName = shopName;
         this.shopAddress = shopAddress;
         this.receptionData = receptionData;
-        this.productList = null;
+        this.productList = new ArrayList<>();
         this.price = 0.00F;
     }
 

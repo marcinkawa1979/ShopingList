@@ -27,7 +27,6 @@ public class ProductListActivity extends AppCompatActivity {
     @BindView(R.id.products_price_ev)
     EditText mPrice;
 
-    //TODO handle rotation problem clearing list
     private ArrayList<Product> productArrayList = new ArrayList<>();
     private MyProductAdapter mAdapter;
 
@@ -50,7 +49,6 @@ public class ProductListActivity extends AppCompatActivity {
 
             recyclerView.setAdapter(mAdapter);
         }
-
 
         mAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override

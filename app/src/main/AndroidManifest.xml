@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.android.shopinglist">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,8 +19,9 @@
         </activity>
         <activity android:name=".ProductListActivity"
             android:label="@string/product_list_label"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustNothing"
+            android:windowSoftInputMode="adjustPan"
             />
         <activity
             android:name=".ShopDataActivity"
@@ -37,6 +39,4 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-
 </manifest>

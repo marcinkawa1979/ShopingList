@@ -52,6 +52,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         ArrayList<Product> productList;
         productList = order.getProductList();
+        if(!productList.isEmpty())
         mProductsList.setText(buildProductList(productList));
 
         float price = order.getPrice();
@@ -59,16 +60,16 @@ public class OrderDetailsActivity extends AppCompatActivity {
     }
 
     private String dateToString(Date date){
-        Format form = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Format form = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         return form.format(date);
     }
 
     private String buildProductList (ArrayList<Product> list){
         StringBuilder sb = new StringBuilder();
 
-        for(int i =0 ; i< list.size(); i++) {
-            sb.append(list.get(i).getProductName());
-            sb.append("\n");
+        for (int i = 0; i < list.size(); i++) {
+                sb.append(list.get(i).getProductName());
+                sb.append("\n");
         }
         return sb.toString();
     }
@@ -77,5 +78,4 @@ public class OrderDetailsActivity extends AppCompatActivity {
         NumberFormat formatter = new DecimalFormat("#0.00");
         return formatter.format(price) + " zł";
     }
-
 }

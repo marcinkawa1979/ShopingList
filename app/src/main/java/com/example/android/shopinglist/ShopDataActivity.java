@@ -10,9 +10,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,22 +45,7 @@ public class ShopDataActivity extends AppCompatActivity {
         mShoppingDateET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calender = Calendar.getInstance();
-                int day = calender.get(Calendar.DAY_OF_MONTH);
-                int month = calender.get(Calendar.MONTH);
-                int year = calender.get(Calendar.YEAR);
-
-                datePicker = new DatePickerDialog(ShopDataActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month = month+1;
-                        String s = year + "-" + month + "-" + dayOfMonth;
-                        mShoppingDateET.setText(s);
-
-
-                    }
-                },year,month,day);
-                datePicker.show();
+                chooseDate();
             }
         });
 
@@ -68,26 +55,13 @@ public class ShopDataActivity extends AppCompatActivity {
 
                 String shopName = mShopNameET.getText().toString();
                 String shopAddress = mShopAddressET.getText().toString();
-                //TODO validation of date is before now, show chosen date
                 String shoppingDate =  mShoppingDateET.getText().toString();
-
-
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd hh:mm");
-
-                Date date = new Date();
-                /*Date shoppingDate;
-                try {
-                    Date shoppingDate = formatter.parse(s);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }*/
-
-                //Date shoppingDate = date;
 
                 if(shopName.equals("") || shopAddress.equals("") || shoppingDate.equals("")){
                     Toast.makeText(getApplicationContext(), "Uzupełnij dane.", Toast.LENGTH_LONG).show();
                 } else {
-                    order = new Order(shopName, shopAddress, date);
+
+                    order = new Order(shopName, shopAddress, convertStringToDate(shoppingDate));
 
                     Intent intent = new Intent(ShopDataActivity.this, ProductListActivity.class);
                     intent.putExtra("Json string", HelperMethods.changeOrderToString(order));
@@ -95,8 +69,40 @@ public class ShopDataActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
+    /**
+     * Converts String date chosen by user to Date object
+     * @param stringDate to convert
+     * @return Date object
+     */
+    private Date convertStringToDate(String stringDate) {
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd", Locale.getDefault());
+        Date t = null;
+        try {
+            t = ft.parse(stringDate);
+        } catch (ParseException e) {
+        }
+        return t;
+    }
 
+    /**
+     * Use custom datepicker to set date of reception shopping
+     */
+    private void chooseDate(){
+        calender = Calendar.getInstance();
+        int day = calender.get(Calendar.DAY_OF_MONTH);
+        int month = calender.get(Calendar.MONTH);
+        int year = calender.get(Calendar.YEAR);
+
+        datePicker = new DatePickerDialog(ShopDataActivity.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month+1;
+                String s = year + "-" + month + "-" + dayOfMonth;
+                mShoppingDateET.setText(s);
+            }
+        },year,month,day);
+        datePicker.show();
+    }
 }
