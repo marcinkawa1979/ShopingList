@@ -77,11 +77,12 @@ public class ShopDataActivity extends AppCompatActivity {
      * @return Date object
      */
     private Date convertStringToDate(String stringDate) {
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat ft = new SimpleDateFormat ("YYYY-mm-DD HH:MM:SS" , Locale.getDefault());
         Date t = null;
         try {
             t = ft.parse(stringDate);
         } catch (ParseException e) {
+            e.printStackTrace();
         }
         return t;
     }

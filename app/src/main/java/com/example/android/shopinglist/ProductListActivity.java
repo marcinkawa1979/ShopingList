@@ -1,6 +1,8 @@
 package com.example.android.shopinglist;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,8 +30,15 @@ public class ProductListActivity extends AppCompatActivity {
     @BindView(R.id.products_price_ev)
     EditText mPrice;
 
+    private static final String BASE_URL = "https://test.elementzone.uk/addOrder";
+
+    private static final String E_MAIL = "emailKey";
+    private static final String PASSWORD = "passwordKey";
+    private static final String TOKEN = "token";
+
     private ArrayList<Product> productArrayList = new ArrayList<>();
     private MyProductAdapter mAdapter;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +46,10 @@ public class ProductListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_list);
 
         ButterKnife.bind(this);
+
+        SharedPreferences preferences = getSharedPreferences("myPreference", Activity.MODE_PRIVATE);
+        token = preferences.getString(TOKEN, "");
+        Toast.makeText(this, "Token " + token + preferences.getString(E_MAIL, ""), Toast.LENGTH_SHORT).show();
 
         Intent intent = getIntent();
         final String json = intent.getStringExtra("Json string");
@@ -72,6 +86,7 @@ public class ProductListActivity extends AppCompatActivity {
                 order.setProductList(productArrayList);
 
                 String insertedPrice = mPrice.getText().toString();
+                String responseAddOrder = "";
 
                 if(insertedPrice.equals("")){
                     Toast.makeText(getApplicationContext(), "Wprowadz kwotę.", Toast.LENGTH_LONG).show();
@@ -79,11 +94,20 @@ public class ProductListActivity extends AppCompatActivity {
                     float price = Float.valueOf(insertedPrice);
                     order.setPrice(price);
 
+                    try {
+                        responseAddOrder = new SendOrderAsync(BASE_URL, order, token).execute().get();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(ProductListActivity.this, "odpowiedz z wysłania" + responseAddOrder, Toast.LENGTH_SHORT).show();
+
                     //TODO here object should be send to server and open OrderList Activity
-                    String json = HelperMethods.changeOrderToString(order);
+                    /*String json = HelperMethods.changeOrderToString(order);
                     Intent intent = new Intent(ProductListActivity.this, OrderDetailsActivity.class);
                     intent.putExtra("Json object", json);
-                    startActivity(intent);
+                    startActivity(intent);*/
                 }
             }
         });

@@ -21,6 +21,8 @@ public class OrderListActivity extends AppCompatActivity {
     @BindView(R.id.order_list_rv) RecyclerView recyclerView;
     @BindView(R.id.empty_view) RelativeLayout emptyView;
 
+    public static final String LOG_TAG = OrderListActivity.class.getName();
+
     private ArrayList<Order> orderArrayList = new ArrayList<>();
     private MyOrderAdapter mAdapter;
 
