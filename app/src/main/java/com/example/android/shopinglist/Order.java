@@ -7,9 +7,13 @@ public class Order {
 
     private String shopName;
     private String shopAddress;
+
     private Date receptionData;
+
+    private String date;
     private ArrayList<Product> productList;
     private float price;
+    private int id;
 
 
     public Order(String shopName, String shopAddress, Date receptionData) {
@@ -18,6 +22,16 @@ public class Order {
         this.receptionData = receptionData;
         this.productList = new ArrayList<>();
         this.price = 0.00F;
+    }
+
+    // this constructor is used when the list of orders is created
+    public Order(String shopName, String shopAddress, Date date, float price, int id, ArrayList<Product> productList) {
+        this.shopName = shopName;
+        this.shopAddress = shopAddress;
+        this.receptionData = date;
+        this.price = price;
+        this.id = id;
+        this.productList = productList;
     }
 
     public Order(Date receptionData, String shopName, String shopAddress, Float price, ArrayList<Product> productList){
@@ -66,5 +80,21 @@ public class Order {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

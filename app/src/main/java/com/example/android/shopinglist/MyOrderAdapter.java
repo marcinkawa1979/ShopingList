@@ -47,7 +47,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderV
     public void onBindViewHolder(@NonNull MyOrderViewHolder holder, int i) {
         Order order = orderList.get(i);
         holder.mOrderNameTv.setText(order.getShopName());
-        holder.mOrderDateTv.setText(order.getReceptionData().toString());
+        holder.mOrderDateTv.setText(HelperMethods.dateToString(order.getReceptionData()));
     }
 
     @Override

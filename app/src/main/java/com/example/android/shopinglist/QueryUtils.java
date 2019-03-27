@@ -17,15 +17,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Helper methods related to requesting, sending and receiving data from server.
  */
 public class QueryUtils {
     /** Tag for log messages */
-    public static final String LOG_TAG = LogInAsync.class.getName();
-    public static final String LOG_TAG_SEND = ProductListActivity.class.getName();
-
+    private static final String LOG_TAG = LogInAsync.class.getName();
+    private static final String LOG_TAG_SEND = ProductListActivity.class.getName();
 
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
@@ -38,7 +38,7 @@ public class QueryUtils {
     /**
      *
      */
-    public static String logToServer(String requestUrl, String email, String password) {
+    static String logToServer(String requestUrl, String email, String password) {
 
         // Create URL object
         URL url = createUrl(requestUrl);
@@ -184,7 +184,7 @@ public class QueryUtils {
     /**
      *
      */
-    public static String addOrder(String requestUrl, Order order, String token) {
+    static String addOrder(String requestUrl, Order order, String token) {
 
         // Create URL object
         URL url = createUrl(requestUrl);
@@ -207,7 +207,8 @@ public class QueryUtils {
     private static JSONObject prepareObjectToSend(Order order, String token){
         //Add POST data in JSON format
         JSONObject jsonOrder = new JSONObject();
-        String[] items = new String[order.getProductList().size()];
+        JSONArray items = new JSONArray();
+        //[order.getProductList().size()];
         try {
             jsonOrder.put("api_token", token);
             jsonOrder.put("date", order.getReceptionData());
@@ -215,10 +216,10 @@ public class QueryUtils {
             jsonOrder.put("location", order.getShopAddress());
             jsonOrder.put("price", order.getPrice());
 
-            for(int i = 0; i<order.getProductList().size();i++){
-                items[i] = order.getProductList().get(i).getProductName();
-            }
-
+            /*for(int i = 0; i<order.getProductList().size();i++){
+                items = order.getProductList().a;
+                product.put("item", order.getProductList().get(i).getProductName());
+            }*/
             jsonOrder.put("items", items);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -314,7 +315,7 @@ public class QueryUtils {
     /**
      *
      */
-    public static String fetchOrders(String requestUrl, String token) {
+    static ArrayList<Order> fetchOrders(String requestUrl, String token) {
 
         // Create URL object
         URL url = createUrl(requestUrl);
@@ -328,13 +329,60 @@ public class QueryUtils {
         }
 
         // Extract relevant fields from the JSON response and create token
-        String response = extractToken(jsonResponse);
+        ArrayList<Order> response = extractOrder(jsonResponse);
 
         return response;
     }
 
+    private static ArrayList<Order> extractOrder(String jsonResponse) {
+        // If the JSON string is empty or null, then return early.
+        if (TextUtils.isEmpty(jsonResponse)) {
+            return null;
+        }
+
+        // Create an empty ArrayList that we can start adding objects to
+        ArrayList<Order> ordersList = new ArrayList<>();
+
+        // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
+        // is formatted, a JSONException exception object will be thrown.
+        // Catch the exception so the app doesn't crash, and print the error message to the logs.
+        try {
+            //Create new JSONObject that holds data from SAMPLE_JSON_RESPONSE
+            JSONObject jObj = new JSONObject(jsonResponse);
+
+            JSONArray dataArray = jObj.getJSONArray("data");
+
+            for (int i = 0; i < dataArray.length(); i++){
+                JSONObject order = dataArray.getJSONObject(i);
+                String stringDate = order.getString("date");
+                Date receptiondate = HelperMethods.convertStringToDate(stringDate);
+                String nameOfShop = order.getString("shop_name");
+                String address = order.getString("location");
+                float price = order.getInt("price");
+                int order_id = order.getInt("id");
+
+                ArrayList<Product> productArrayList = new ArrayList<>();
+                JSONArray itemsArray = order.getJSONArray("items");
+                for(int j = 0;j < itemsArray.length(); j++ ){
+                    JSONObject item = itemsArray.getJSONObject(j);
+                    String itemName = item.getString("item");
+                    productArrayList.add(new Product(itemName));
+                }
+                // Add new order to ArrayList<Order>
+                ordersList.add(new Order(nameOfShop, address, receptiondate, price, order_id, productArrayList));
+            }
+        } catch (JSONException e) {
+            // If an error is thrown when executing any of the above statements in the "try" block,
+            // catch the exception here, so the app doesn't crash. Print a log message
+            // with the message from the exception.
+            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+        }
+            // Return the list of orders
+        return ordersList;
+    }
+
     /**
-     * Make an HTTP request to the given URL and return a String as the response.
+     * Make an HTTP request to the given URL and token. Return a String as the response.
      */
     private static String makeGetOrdersRequest(URL url, String token) throws IOException {
         String jsonResponse = "";
@@ -357,6 +405,8 @@ public class QueryUtils {
             JSONObject jsonParam = new JSONObject();
             try {
                 jsonParam.put("api_token", token);
+                jsonParam.put("offset", 1);
+                jsonParam.put("limit", 8);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -393,12 +443,120 @@ public class QueryUtils {
         return jsonResponse;
     }
 
+    static String fetchLink(String requestUrl, String token , String id) {
+
+        // Create URL object
+        URL url = createUrl(requestUrl);
+
+        // Perform HTTP request to the URL and receive a JSON response back
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeLinkRequest(url, token, id);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Error closing input stream", e);
+        }
+
+        // Extract relevant fields from the JSON response and create token
+        String response = extractLink(jsonResponse);
+
+        return response;
+    }
+
+    private static String extractLink(String jsonResponse) {
+
+        // If the JSON string is empty or null, then return early.
+        if (TextUtils.isEmpty(jsonResponse)) {
+            return null;
+        }
+
+        String link = "";
+
+        // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
+        // is formatted, a JSONException exception object will be thrown.
+        // Catch the exception so the app doesn't crash, and print the error message to the logs.
+        try {
+
+            //Create new JSONObject that holds data from SAMPLE_JSON_RESPONSE
+            JSONObject jObj = new JSONObject(jsonResponse);
+
+            JSONObject data = jObj.getJSONObject("data");
+            link = data.getString("link");
+
+        } catch (JSONException e) {
+            // If an error is thrown when executing any of the above statements in the "try" block,
+            // catch the exception here, so the app doesn't crash. Print a log message
+            // with the message from the exception.
+            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+        }
+        return link;
+    }
+
+    /**
+     * Make an HTTP request to the given URL and return a String as the response.
+     */
+    private static String makeLinkRequest(URL url, String token, String id) throws IOException {
+        String jsonResponse = "";
+
+        // If the url is null, than return earlier
+        if(url == null){
+            return jsonResponse;
+        }
+
+        HttpURLConnection urlConnection = null;
+        InputStream inputStream = null;
+        try {
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            urlConnection.setReadTimeout(10000 /* milliseconds */);
+            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+
+            //Add POST data in JSON format
+            JSONObject jsonParam = new JSONObject();
+            try {
+                jsonParam.put("api_token", token);
+                jsonParam.put("id", id);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            //Create a writer object and make the request
+            OutputStreamWriter outputStream = new OutputStreamWriter(urlConnection.getOutputStream());
+            outputStream.write(jsonParam.toString());
+            outputStream.flush();
+            outputStream.close();
+
+            urlConnection.connect();
+
+            //If the response was successful(code 200)
+            //then read the input stream and parse the response
+            if (urlConnection.getResponseCode() == 200) {
+                Log.e(LogInActivity.LOG_TAG, "OK, response code: " + urlConnection.getResponseCode());
+                inputStream = urlConnection.getInputStream();
+                jsonResponse = readFromStream(inputStream);
+            } else {
+                Log.e(LogInActivity.LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
+            }
+        } catch (IOException e) {
+            Log.e(LogInActivity.LOG_TAG, "Problem can't connect", e);
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+            if (inputStream != null) {
+                // function must handle java.io.IOException here
+                inputStream.close();
+            }
+        }
+        return jsonResponse;
+    }
+
+
+
 
     // TODO
 
-    /**
-     *
-     */
+    /* *//*
     public static String getOrder(Order order, String token) {
 
         // Create URL object
@@ -417,9 +575,7 @@ public class QueryUtils {
 
         return response;
     }
-    /**
-     * Make an HTTP request to the given URL and return a String as the response.
-     */
+    *//*
     private static String makeRequest(URL url) throws IOException {
         String jsonResponse = "";
 
@@ -434,8 +590,8 @@ public class QueryUtils {
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setRequestProperty("Content-Type", "application/json");
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setReadTimeout(10000 *//* milliseconds *//*);
+            urlConnection.setConnectTimeout(15000 *//* milliseconds *//*);
             urlConnection.connect();
 
             //If the response was successful(code 200)
@@ -463,10 +619,7 @@ public class QueryUtils {
 
 
 
-    /**
-     * Return a list of {@link Order} objects that has been built up from
-     * parsing a JSON response.
-     */
+    *//*
     public static ArrayList<Order> extractEarthquakes(String jsonResponse) {
 
         // If the JSON string is empty or null, then return early.
@@ -520,8 +673,5 @@ public class QueryUtils {
 
         // Return the list of earthquakes
         return orders;
-    }
-
-
-
+    }*/
 }

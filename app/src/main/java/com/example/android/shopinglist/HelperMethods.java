@@ -2,6 +2,11 @@ package com.example.android.shopinglist;
 
 import com.google.gson.Gson;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * This HelperMethod class contains methods used in project
  */
@@ -35,5 +40,34 @@ public final class HelperMethods {
 
         Order order = new Gson().fromJson(json, Order.class);
         return order;
+    }
+
+    /**
+     * Converts String date chosen by user to Date object
+     * @param stringDate to convert
+     * @return Date object
+     */
+    public static Date convertStringToDate(String stringDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date myDate = new Date();
+        try {
+            myDate = dateFormat.parse(stringDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return myDate;
+    }
+
+    /**
+     * Convert Date object to String date
+     * @param date object to convert
+     * @return date as String
+     */
+    public static String dateToString(Date date){
+
+        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String stringDate = DATE_FORMAT.format(date);
+        return stringDate;
+
     }
 }

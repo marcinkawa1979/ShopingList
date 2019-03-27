@@ -5,6 +5,8 @@ public class Product {
     private String productName;
     private float productCost;
 
+    public Product(){}
+
     public Product(String productName, int productCost) {
         this.productName = productName;
         this.productCost = productCost;

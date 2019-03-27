@@ -33,7 +33,6 @@ public class ProductListActivity extends AppCompatActivity {
     private static final String BASE_URL = "https://test.elementzone.uk/addOrder";
 
     private static final String E_MAIL = "emailKey";
-    private static final String PASSWORD = "passwordKey";
     private static final String TOKEN = "token";
 
     private ArrayList<Product> productArrayList = new ArrayList<>();
@@ -82,6 +81,7 @@ public class ProductListActivity extends AppCompatActivity {
         mConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Order order = HelperMethods.changeStringToOrder(json);
                 order.setProductList(productArrayList);
 
