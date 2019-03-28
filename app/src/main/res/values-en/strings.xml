@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ShoppingList</string>
+    <string name="password">Password</string>
+    <string name="empty_view_title_text">No orders yet.</string>
+    <string name="empty_view_subtitle_text">It\'s time to buy few things. Click the plus button.</string>
+    <string name="shop_data_label">Data of shop.</string>
+    <string name="order_detail_label">Data of order.</string>
+    <string name="order_details_button_text">Invite.</string>
+    <string name="product_list_label">Shopping list.</string>
+    <string name="product">Goods</string>
+    <string name="done">Accept</string>
+    <string name="next_button">Next</string>
+    <string name="amount">Amount</string>
+    <string name="hint_shop_name">Name of shop</string>
+    <string name="hint_localization">Address</string>
+    <string name="hint_shopping_date">Date of receiving</string>
+    <string name="hint_product">Merchandise</string>
+    <string name="hint_sample_price">0 £</string>
+    <string name="log_in_toast_1">Authorization problem. Please check e-mail and password.</string>
+    <string name="log_in_toast_2">Please type e-mail.</string>
+    <string name="log_in_toast_3">Upss. No network. Check it out.</string>
+    <string name="order_detail_act_toast_1">"This is link to order: "</string>
+    <string name="prod_list_act_toast_1">Please type product name.</string>
+    <string name="prod_list_act_toast_2">Please type sum.</string>
+    <string name="shop_data_act_toast_1">Please fill in all fields.</string>
+</resources>

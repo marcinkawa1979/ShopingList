@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">ShoppingList</string>
-    <string name="e_mail">E-mail</string>
+    <string name="app_name" translatable="false">ShoppingList</string>
+    <string name="e_mail" translatable="false">E-mail</string>
     <string name="password">Hasło</string>
-    <string name="log_in_button_text">LOG IN</string>
+    <string name="log_in_button_text" translatable="false">LOG IN</string>
 
-    <string name="title_activity_order_list">OrderList</string>
+    <string name="title_activity_order_list" translatable="false">OrderList</string>
 
     <string name="empty_view_title_text">Jescze nic nie kupiłeś.</string>
     <string name="empty_view_subtitle_text">Czas zrobić nowe zakupy. Kliknij w ikonkę na dole.</string>
@@ -23,8 +23,8 @@
     <string name="hint_sample_price">0 zł</string>
     <string name="log_in_toast_1">Problem z weryfikacją. Zaloguj się jeszcze raz.</string>
     <string name="log_in_toast_2">Podaj email</string>
-    <string name="log_in_toast_3">Upss. No network. Check it out.</string>
-    <string name="order_detail_act_toast_1">This is link to order:</string>
+    <string name="log_in_toast_3">Upss. Brak połączenia z siecią.</string>
+    <string name="order_detail_act_toast_1">Link do zamówienia.</string>
     <string name="prod_list_act_toast_1">Podaj nazwę produktu</string>
     <string name="prod_list_act_toast_2">Wprowadz kwotę.</string>
     <string name="shop_data_act_toast_1">Uzupełnij dane.</string>
