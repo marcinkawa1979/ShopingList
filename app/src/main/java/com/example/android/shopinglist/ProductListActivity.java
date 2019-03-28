@@ -69,7 +69,7 @@ public class ProductListActivity extends AppCompatActivity {
                 String product = mProductName.getText().toString();
 
                 if(product.equals("")){
-                    Toast.makeText(getApplicationContext(), "Podaj nazwę produktu", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.prod_list_act_toast_1), Toast.LENGTH_LONG).show();
                 } else{
                     addProduct(product);
                     mAdapter.notifyDataSetChanged();
@@ -89,7 +89,7 @@ public class ProductListActivity extends AppCompatActivity {
                 String responseAddOrder = "";
 
                 if(insertedPrice.equals("")){
-                    Toast.makeText(getApplicationContext(), "Wprowadz kwotę.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.prod_list_act_toast_2), Toast.LENGTH_LONG).show();
                 } else {
                     float price = Float.valueOf(insertedPrice);
                     order.setPrice(price);
@@ -101,20 +101,16 @@ public class ProductListActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    Toast.makeText(ProductListActivity.this, "odpowiedz z wysłania" + responseAddOrder, Toast.LENGTH_SHORT).show();
 
-                    //TODO here object should be send to server and open OrderList Activity
-                    /*String json = HelperMethods.changeOrderToString(order);
-                    Intent intent = new Intent(ProductListActivity.this, OrderDetailsActivity.class);
-                    intent.putExtra("Json object", json);
-                    startActivity(intent);*/
+                    Intent intent = new Intent(ProductListActivity.this, OrderListActivity.class);
+                    startActivity(intent);
                 }
             }
         });
     }
 
     /**
-     * Adds new product to list.
+     * Adds new product to ArrayList.
      * @param productName inserted by user
      */
     private void addProduct(String productName){

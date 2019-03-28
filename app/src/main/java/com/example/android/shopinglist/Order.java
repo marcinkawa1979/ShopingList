@@ -34,14 +34,6 @@ public class Order {
         this.productList = productList;
     }
 
-    public Order(Date receptionData, String shopName, String shopAddress, Float price, ArrayList<Product> productList){
-        this.receptionData = receptionData;
-        this.shopName = shopName;
-        this.shopAddress = shopAddress;
-        this.price = price;
-        this.productList= productList;
-    }
-
     public String getShopName() {
         return shopName;
     }

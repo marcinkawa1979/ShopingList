@@ -48,7 +48,7 @@
         <item name="android:layout_height">@dimen/line_height</item>
         <item name="android:layout_marginLeft">@dimen/line_margin</item>
         <item name="android:layout_marginRight">@dimen/line_margin</item>
-        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

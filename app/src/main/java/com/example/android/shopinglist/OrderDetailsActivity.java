@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -38,8 +37,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
     public static final String LOG_TAG = OrderDetailsActivity.class.getName();
     private static final String URL = "https://test.elementzone.uk/generate";
 
-    private static final String E_MAIL = "emailKey";
-    private static final String PASSWORD = "passwordKey";
     private static final String TOKEN = "token";
 
     private String token;
@@ -88,12 +85,16 @@ public class OrderDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getLink(URL, token, idString);
 
-                Toast.makeText(OrderDetailsActivity.this, "This is link to order: "  + link, Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderDetailsActivity.this, getString(R.string.order_detail_act_toast_1)  + link, Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
+    /**
+     * Creates list of products to show in TextView
+     * @param list of products
+     * @return String - list of products
+      */
     private String buildProductList (ArrayList<Product> list){
         StringBuilder sb = new StringBuilder();
 
@@ -104,12 +105,22 @@ public class OrderDetailsActivity extends AppCompatActivity {
         return sb.toString();
     }
 
+    /**
+     *  Creates a price to show
+     * @param price as float value
+     * @return string to show
+     */
     private String formatPrice(Float price){
         NumberFormat formatter = new DecimalFormat("#0.00");
         return formatter.format(price) + " zł";
     }
 
-    //TODO
+    /**
+     * Get link to an order which can be send
+     * @param url address
+     * @param token needed to authorization request
+     * @param idString of order
+     */
     private void getLink(String url, String token, String idString){
         try {
             link = new OrderDetailsAsync(url, token, idString).execute().get();
@@ -118,9 +129,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        Log.i(LOG_TAG, "getLink method loader check point 3 " + url);
+      //  Log.i(LOG_TAG, "getLink method loader check point 3 " + url);
     }
-
-
 }

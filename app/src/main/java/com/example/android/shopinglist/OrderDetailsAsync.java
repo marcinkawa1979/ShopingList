@@ -1,7 +1,6 @@
 package com.example.android.shopinglist;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class OrderDetailsAsync extends AsyncTask<String, Void, String> {
 
@@ -21,7 +20,7 @@ public class OrderDetailsAsync extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        Log.i(LOG_TAG, "In LogIn loadInBackground method check point");
+//       Log.i(LOG_TAG, "In LogIn loadInBackground method check point");
 
         // Don't perform the request if there are no URLs, or the first URL is null.
         if(mUrl== null){
@@ -30,7 +29,7 @@ public class OrderDetailsAsync extends AsyncTask<String, Void, String> {
 
         // Perform the HTTP request for earthquake data and process the response.
         String result = QueryUtils.fetchLink(mUrl, token, id);
-        Log.i(LOG_TAG, "In loadInBackground method check point " + result);
+//        Log.i(LOG_TAG, "In loadInBackground method check point " + result);
         return result;
     }
 }

@@ -58,7 +58,7 @@ public class ShopDataActivity extends AppCompatActivity {
                 String shoppingDate =  mShoppingDateET.getText().toString();
 
                 if(shopName.equals("") || shopAddress.equals("") || shoppingDate.equals("")){
-                    Toast.makeText(getApplicationContext(), "Uzupełnij dane.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.shop_data_act_toast_1), Toast.LENGTH_LONG).show();
                 } else {
 
                     order = new Order(shopName, shopAddress, convertStringToDate(shoppingDate));
@@ -88,7 +88,7 @@ public class ShopDataActivity extends AppCompatActivity {
     }
 
     /**
-     * Use custom datepicker to set date of reception shopping
+     * Use custom datepicker to set date of shopping reception
      */
     private void chooseDate(){
         calender = Calendar.getInstance();

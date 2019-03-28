@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,6 +56,7 @@ public class LogInActivity extends AppCompatActivity{
         ButterKnife.bind(this);
         preferences = getSharedPreferences("myPreference", Activity.MODE_PRIVATE);
 
+        // make password visible or hidden
         mShowPasswordButton.setOnClickListener(new View.OnClickListener() {
             boolean isPasswordVisible = false;
             @Override
@@ -73,22 +73,6 @@ public class LogInActivity extends AppCompatActivity{
             }
         });
 
-
-        /*mLogInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String pass = mPasswordET.getText().toString();
-                String login = mEmailET.getText().toString();
-                WebServiceManager.getInstance().initialize(login,pass,getApplicationContext());
-                //WebServiceManager.getInstance().initialize("ll@uu.com","pspsps",getApplicationContext());
-
-                Intent intent = new Intent(LogInActivity.this, OrderListActivity.class);
-                startActivity(intent);
-
-
-            }
-        });*/
         if(preferences.contains(E_MAIL)) mEmailET.setText(preferences.getString(E_MAIL,""));
         if(preferences.contains(PASSWORD)) mPasswordET.setText(preferences.getString(PASSWORD,""));
 
@@ -96,13 +80,17 @@ public class LogInActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if (preferences.contains(TOKEN)) {
-//                    mTokenTV.setText(preferences.getString(TOKEN, ""));
-                    Toast.makeText(LogInActivity.this, "Dane już zapisano", Toast.LENGTH_SHORT).show();
 
-                    //refresh(); //TODO zaimplementować
-                    Intent intent = new Intent(LogInActivity.this, OrderListActivity.class);
-                    startActivity(intent);
+                    requestedUrl = BASE_URL + REFRESH;
+                    token = preferences.getString(TOKEN,"");
 
+                    if(refresh()){
+                        Toast.makeText(LogInActivity.this, "Login correct", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LogInActivity.this, OrderListActivity.class);
+                        startActivity(intent);
+                  } else {
+                         Toast.makeText(LogInActivity.this, getString(R.string.log_in_toast_1), Toast.LENGTH_SHORT).show();
+                    }
                 } else{
                     requestedUrl = BASE_URL + LOG_IN;
                     mLogInButton.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +100,7 @@ public class LogInActivity extends AppCompatActivity{
                             password = mPasswordET.getText().toString();
 
                             if (eMail.isEmpty()) {
-                                Toast.makeText(LogInActivity.this, "Podaj email", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LogInActivity.this, getString(R.string.log_in_toast_2), Toast.LENGTH_SHORT).show();
                             } else {
                                 connect();
                             }
@@ -125,8 +113,6 @@ public class LogInActivity extends AppCompatActivity{
 
                             Intent intent = new Intent(LogInActivity.this, OrderListActivity.class);
                             startActivity(intent);
-
-
                         }
                     });
                 }
@@ -134,6 +120,9 @@ public class LogInActivity extends AppCompatActivity{
         });
     }
 
+    /**
+     * Checks if device is connected to net and connects with server log in
+     */
     private void connect(){
         // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -151,12 +140,40 @@ public class LogInActivity extends AppCompatActivity{
                 e.printStackTrace();
             }
 
-            Log.i(LOG_TAG, "connect method loader check point 3 " + requestedUrl);
+//            Log.i(LOG_TAG, "connect method loader check point 3 " + requestedUrl);
 
         }else{
-            Toast.makeText(this, "Upss. No network. Check it out,", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.log_in_toast_3), Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private Boolean refresh(){
+
+        Boolean isRefreshed = null;
+
+        // Get a reference to the ConnectivityManager to check state of network connectivity
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // Get details on the currently active default data network
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            try {
+                isRefreshed = new RefreshAsync(requestedUrl, token).execute().get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+//            Log.i(LOG_TAG, "refresh method loader check point 4 " + isRefreshed + requestedUrl);
+
+        }else{
+            Toast.makeText(this, R.string.log_in_toast_3, Toast.LENGTH_SHORT).show();
+        }
+        return isRefreshed;
     }
 
 }

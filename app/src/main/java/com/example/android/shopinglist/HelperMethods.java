@@ -16,13 +16,13 @@ public final class HelperMethods {
     /**
      * Create a private constructor because no one should ever create a {@link HelperMethods} object.
      * This class is only meant to hold static variables and methods, which can be accessed
-     *  directly from the class name HelperMethods (and an object instance of QueryUtils is not needed).
+     *  directly from the class name HelperMethods.
      */
     private HelperMethods() {
     }
 
     /**
-     * This method changes Order type object to string. So to send object via Activities.
+     * This method changes Order type object to string. So to send object via intent to Activities.
      * @param order object to change
      * @return String representation of object
      */

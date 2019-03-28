@@ -8,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -30,7 +29,7 @@ public class OrderListActivity extends AppCompatActivity {
     private ArrayList<Order> orderArrayList = new ArrayList<>();
     private MyOrderAdapter mAdapter;
     private String token;
-    private String response;
+
 
     private static final String TOKEN = "token";
 
@@ -38,7 +37,7 @@ public class OrderListActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            // This viewHolder will have all required values.
+            // after clicked on view DetailsActivity shows up
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             int position = viewHolder.getAdapterPosition();
             Order thisItem = orderArrayList.get(position);
@@ -58,13 +57,7 @@ public class OrderListActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("myPreference", Activity.MODE_PRIVATE);
         token = preferences.getString(TOKEN, "");
 
-        /*Date date = new Date();
-        orderArrayList.add(new Order("Biedronka", "someAddress", date));
-        orderArrayList.add(new Order("Lidl", "fghfdsf", date));
-        orderArrayList.add(new Order("Biedronka", "someAddress", date));*/
-
         orderArrayList = connect();
-
 
         ButterKnife.bind(this);
 
@@ -93,6 +86,10 @@ public class OrderListActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(onItemClickListener);
     }
 
+    /**
+     * Gets list of Orders.
+     * @return list of orders fetched from server
+     */
     private ArrayList<Order> connect(){
         ArrayList <Order> response = null;
 
@@ -103,12 +100,7 @@ public class OrderListActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        Log.i(LOG_TAG, "connect method loader check point 3 " + requestedUrl);
-
-
+//        Log.i(LOG_TAG, "connect method loader check point 3 " + requestedUrl);
         return response;
-
     }
-
 }
