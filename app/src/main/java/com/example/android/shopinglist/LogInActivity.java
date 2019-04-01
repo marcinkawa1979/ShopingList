@@ -73,19 +73,22 @@ public class LogInActivity extends AppCompatActivity{
             }
         });
 
-        if(preferences.contains(E_MAIL)) mEmailET.setText(preferences.getString(E_MAIL,""));
-        if(preferences.contains(PASSWORD)) mPasswordET.setText(preferences.getString(PASSWORD,""));
+        if(preferences.contains(E_MAIL)){
+            eMail = preferences.getString(E_MAIL,"");
+            mEmailET.setText(eMail);}
+        if(preferences.contains(PASSWORD)){
+            password = preferences.getString(PASSWORD,"");
+            mPasswordET.setText(password);}
 
         mLogInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (preferences.contains(TOKEN)) {
+                if (preferences.contains(TOKEN) && verification(eMail, password)) {
 
                     requestedUrl = BASE_URL + REFRESH;
                     token = preferences.getString(TOKEN,"");
 
                     if(refresh()){
-                        Toast.makeText(LogInActivity.this, "Login correct", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LogInActivity.this, OrderListActivity.class);
                         startActivity(intent);
                   } else {
@@ -100,7 +103,7 @@ public class LogInActivity extends AppCompatActivity{
                             password = mPasswordET.getText().toString();
 
                             if (eMail.isEmpty()) {
-                                Toast.makeText(LogInActivity.this, getString(R.string.log_in_toast_2), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LogInActivity.this, getString(R.string.log_in_input_email_toast), Toast.LENGTH_SHORT).show();
                             } else {
                                 connect();
                             }
@@ -143,7 +146,7 @@ public class LogInActivity extends AppCompatActivity{
 //            Log.i(LOG_TAG, "connect method loader check point 3 " + requestedUrl);
 
         }else{
-            Toast.makeText(this, getString(R.string.log_in_toast_3), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.login_no_connect_toast), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -171,9 +174,26 @@ public class LogInActivity extends AppCompatActivity{
 //            Log.i(LOG_TAG, "refresh method loader check point 4 " + isRefreshed + requestedUrl);
 
         }else{
-            Toast.makeText(this, R.string.log_in_toast_3, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.login_no_connect_toast, Toast.LENGTH_SHORT).show();
         }
         return isRefreshed;
+    }
+
+    /**
+     * This method checks if email and password are valid
+     *
+     */
+    private boolean verification(String mail, String pass){
+
+        if(mEmailET.getText().toString().equals(mail) && mPasswordET.getText().toString().equals(pass)) {
+
+            return true;
+
+        } else {
+            Toast.makeText(LogInActivity.this, getString(R.string.login_activ_validation_toast), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
     }
 
 }

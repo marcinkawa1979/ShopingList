@@ -22,10 +22,11 @@
     <string name="hint_product">Towar</string>
     <string name="hint_sample_price">0 zł</string>
     <string name="log_in_toast_1">Problem z weryfikacją. Zaloguj się jeszcze raz.</string>
-    <string name="log_in_toast_2">Podaj email</string>
-    <string name="log_in_toast_3">Upss. Brak połączenia z siecią.</string>
-    <string name="order_detail_act_toast_1">Link do zamówienia.</string>
-    <string name="prod_list_act_toast_1">Podaj nazwę produktu</string>
-    <string name="prod_list_act_toast_2">Wprowadz kwotę.</string>
-    <string name="shop_data_act_toast_1">Uzupełnij dane.</string>
+    <string name="log_in_input_email_toast">Podaj email</string>
+    <string name="login_no_connect_toast">Upss. Brak połączenia z siecią.</string>
+    <string name="order_detail_act_toast">Link do zamówienia.</string>
+    <string name="prod_list_act_product_toast">Podaj nazwę produktu</string>
+    <string name="prod_list_act_amount_toast">Wprowadz kwotę.</string>
+    <string name="shop_data_act_add_data_toast">Uzupełnij dane.</string>
+    <string name="login_activ_validation_toast">Niepoprawne dane. Sprawdź email lub hasło.</string>
 </resources>

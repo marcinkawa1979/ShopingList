@@ -85,7 +85,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getLink(URL, token, idString);
 
-                Toast.makeText(OrderDetailsActivity.this, getString(R.string.order_detail_act_toast_1)  + link, Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderDetailsActivity.this, getString(R.string.order_detail_act_toast)  + link, Toast.LENGTH_SHORT).show();
             }
         });
     }

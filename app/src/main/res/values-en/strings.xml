@@ -18,10 +18,11 @@
     <string name="hint_product">Merchandise</string>
     <string name="hint_sample_price">0 £</string>
     <string name="log_in_toast_1">Authorization problem. Please check e-mail and password.</string>
-    <string name="log_in_toast_2">Please type e-mail.</string>
-    <string name="log_in_toast_3">Upss. No network. Check it out.</string>
-    <string name="order_detail_act_toast_1">"This is link to order: "</string>
-    <string name="prod_list_act_toast_1">Please type product name.</string>
-    <string name="prod_list_act_toast_2">Please type sum.</string>
-    <string name="shop_data_act_toast_1">Please fill in all fields.</string>
+    <string name="log_in_input_email_toast">Please type e-mail.</string>
+    <string name="login_no_connect_toast">Upss. No network. Check it out.</string>
+    <string name="order_detail_act_toast">"This is link to order: "</string>
+    <string name="prod_list_act_product_toast">Please type product name.</string>
+    <string name="prod_list_act_amount_toast">Please type sum.</string>
+    <string name="shop_data_act_add_data_toast">Please fill in all fields.</string>
+    <string name="login_activ_validation_toast">Wrong email or password. Check again.</string>
 </resources>

@@ -48,7 +48,6 @@ public class ProductListActivity extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences("myPreference", Activity.MODE_PRIVATE);
         token = preferences.getString(TOKEN, "");
-        Toast.makeText(this, "Token " + token + preferences.getString(E_MAIL, ""), Toast.LENGTH_SHORT).show();
 
         Intent intent = getIntent();
         final String json = intent.getStringExtra("Json string");
@@ -69,7 +68,7 @@ public class ProductListActivity extends AppCompatActivity {
                 String product = mProductName.getText().toString();
 
                 if(product.equals("")){
-                    Toast.makeText(getApplicationContext(), getString(R.string.prod_list_act_toast_1), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.prod_list_act_product_toast), Toast.LENGTH_LONG).show();
                 } else{
                     addProduct(product);
                     mAdapter.notifyDataSetChanged();
@@ -89,7 +88,7 @@ public class ProductListActivity extends AppCompatActivity {
                 String responseAddOrder = "";
 
                 if(insertedPrice.equals("")){
-                    Toast.makeText(getApplicationContext(), getString(R.string.prod_list_act_toast_2), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.prod_list_act_amount_toast), Toast.LENGTH_LONG).show();
                 } else {
                     float price = Float.valueOf(insertedPrice);
                     order.setPrice(price);

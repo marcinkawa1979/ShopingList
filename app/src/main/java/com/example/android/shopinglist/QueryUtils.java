@@ -321,7 +321,6 @@ public final class QueryUtils {
 
             for(int i = 0; i<order.getProductList().size();i++){
                 Product prod = order.getProductList().get(i);
-                //item.put("item", prod.getProductName());
                 items.put(prod.getProductName());
             }
             jsonOrder.put("items", items);
@@ -417,7 +416,10 @@ public final class QueryUtils {
     }
 
     /**
-     *
+     * Gets the list of orders from server
+     * @param requestUrl to send request
+     * @param token for user
+     * @return list of orders
      */
     static ArrayList<Order> fetchOrders(String requestUrl, String token) {
 
@@ -455,6 +457,7 @@ public final class QueryUtils {
             JSONObject jObj = new JSONObject(jsonResponse);
 
             JSONArray dataArray = jObj.getJSONArray("data");
+
 
             for (int i = 0; i < dataArray.length(); i++){
                 JSONObject orderJson = dataArray.getJSONObject(i);
@@ -509,8 +512,7 @@ public final class QueryUtils {
             JSONObject jsonParam = new JSONObject();
             try {
                 jsonParam.put("api_token", token);
-                jsonParam.put("owner_id", 38);
-                jsonParam.put("offset", 54);
+                jsonParam.put("offset", 70);
                 jsonParam.put("limit", 6);
 
             } catch (JSONException e) {
